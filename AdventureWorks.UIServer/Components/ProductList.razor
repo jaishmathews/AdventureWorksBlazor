@@ -1,0 +1,58 @@
+﻿@using AdventureWorks.UIServer.Utility.Interfaces
+@inject HttpClient Http
+@inject HttpInterceptorService Interceptor
+@inject IConfiguration Configuration
+@inject IDataAccessManager DataAccessManager
+
+
+@if (productList == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Name</th>
+				<th scope="col">Color</th>
+				<th scope="col">Price</th>
+				<th scope="col">Size</th>
+			</tr>
+		</thead>
+		<tbody>
+			<Virtualize Items="productList" Context="product">
+				<ItemContent>
+					<tr @key="product.ProductId">
+						<td>@product.ProductId</td>
+						<td>@product.Name</td>
+						<td>@product.Color</td>
+						<td>@product.ListPrice</td>
+						<td>@product.Size</td>
+					</tr>
+				</ItemContent>
+				<Placeholder>
+					<tr class="bg-info">
+						<td>Loading...</td>
+					</tr>
+				</Placeholder>
+			</Virtualize>
+		</tbody>
+	</table>
+}
+@code {
+
+	private ProductViewModel[] productList;
+
+	protected override async Task OnInitializedAsync()
+	{
+		string endPoint = Configuration.GetSection("AppSettings").GetSection("ProductlistEndPoint").Value;
+		var options = new JsonSerializerOptions
+		{
+			PropertyNameCaseInsensitive = true
+		};
+		productList = await DataAccessManager.GetAsync<ProductViewModel[]>(endPoint);
+	}
+}

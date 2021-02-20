@@ -1,0 +1,36 @@
+﻿@page "/productui/{operation}"
+@using AdventureWorks.UIServer.Components
+@using Microsoft.Extensions.Logging
+@inject HttpInterceptorService Interceptor
+@inject ILogger<ProductUI> Logger
+@implements IDisposable
+
+@if (Operation == "1")
+{
+    <h3>Server Product List</h3>
+    <ProductList></ProductList>
+}
+else if (Operation == "2")
+{
+    <h3>Product Entry</h3>
+    <ProductEntry></ProductEntry>
+}
+
+@code   {
+
+    [Parameter]
+    public string Operation { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Logger.LogInformation("Page Started..");
+        Interceptor.RegisterEvent();
+    }
+
+    public void Dispose()
+    {
+        Logger.LogInformation("Page Dispose..");
+        Interceptor.DisposeEvent();
+        GC.SuppressFinalize(this);
+    }
+}

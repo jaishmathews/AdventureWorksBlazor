@@ -1,0 +1,85 @@
+﻿@using AdventureWorks.UIServer.Utility.Interfaces
+@inject HttpClient Http
+@inject IConfiguration Configuration
+@inject IDataAccessManager DataAccessManager
+
+<EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
+	<DataAnnotationsValidator />
+	@*<DataAnnotationsValidator />*@
+	@*<CustomValidator @ref="customValidator" />*@
+	@*<ValidationSummary />*@
+	@*<div asp-validation-summary="All" class="text-warning"></div>*@
+
+	<table class="table table-bordered">
+		<thead>
+			@if (!string.IsNullOrEmpty(status))
+			{
+				<tr class="text-info">@status</tr>
+			}
+		</thead>
+		<tbody>
+			<tr>
+				<td> Product Name:</td>
+				<td>
+					<InputText id="ProductName" @bind-Value="productViewModel.Name" />
+					<ValidationMessage For="@(()=> productViewModel.Name)"></ValidationMessage>
+				</td>
+			</tr>
+			<tr>
+				<td> Product Number:</td>
+				<td>
+					<InputText id="ProductNumber" @bind-Value="productViewModel.ProductNumber" />
+					<ValidationMessage For="@(()=> productViewModel.ProductNumber)"></ValidationMessage>
+				</td>
+			</tr>
+			<tr>
+				<td>Standard Cost:</td>
+				<td>
+					<InputNumber id="StandardCost" @bind-Value="productViewModel.StandardCost"></InputNumber>
+					<ValidationMessage For="@(()=> productViewModel.StandardCost)"></ValidationMessage>
+				</td>
+			</tr>
+			<tr>
+				<td>  List Price:</td>
+				<td>
+					<InputNumber id="StandardCost" @bind-Value="productViewModel.ListPrice"></InputNumber>
+					<ValidationMessage For="@(()=> productViewModel.ListPrice)"></ValidationMessage>
+				</td>
+			</tr>
+			<tr>
+				<td>SellStart Date:</td>
+				<td>
+					<InputDate id="SellStartDate" @bind-Value="productViewModel.SellStartDate"></InputDate>
+					<ValidationMessage For="@(()=> productViewModel.SellStartDate)"></ValidationMessage>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" class="btn btn-primary" value="Save" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</EditForm>
+
+@code {
+	private string status = string.Empty;
+	private ProductViewModel productViewModel = new ProductViewModel();
+	private EditContext editContext;
+
+	protected override void OnInitialized()
+	{
+		editContext = new EditContext(productViewModel);
+	}
+
+
+	private async Task HandleValidSubmit()
+	{
+		string endPoint = Configuration.GetSection("AppSettings").GetSection("ProductEntryEndPoint").Value;
+		var result = await DataAccessManager.PostAsync(endPoint, productViewModel);
+		if (result)
+		{
+			status = "Successfuly created";
+		}
+	}
+}
