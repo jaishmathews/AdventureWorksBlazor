@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.UIServer", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.ViewModel", "AdventureWorks.ViewModel\AdventureWorks.ViewModel.csproj", "{C00D88C3-29ED-4FF6-8884-6C1552D2AA8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Business.Tests", "AdventureWorks.Business.Tests\AdventureWorks.Business.Tests.csproj", "{FAEEB9AF-76A2-4B23-A333-2B8F16823644}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C00D88C3-29ED-4FF6-8884-6C1552D2AA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C00D88C3-29ED-4FF6-8884-6C1552D2AA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C00D88C3-29ED-4FF6-8884-6C1552D2AA8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAEEB9AF-76A2-4B23-A333-2B8F16823644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAEEB9AF-76A2-4B23-A333-2B8F16823644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAEEB9AF-76A2-4B23-A333-2B8F16823644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAEEB9AF-76A2-4B23-A333-2B8F16823644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
