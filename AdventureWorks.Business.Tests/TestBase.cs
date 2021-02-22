@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorks.DataAccess.Models;
+using AutoMapper;
 
 namespace AdventureWorks.Business.Tests
 {
@@ -14,11 +15,22 @@ namespace AdventureWorks.Business.Tests
 		private static readonly DbContextOptions<AdventureWorksLT2019Context> dbContextOptions = new DbContextOptionsBuilder<AdventureWorksLT2019Context>()
 				.UseInMemoryDatabase(databaseName: "AdventureWorksLT2019")
 				.Options;
-		protected static AdventureWorksLT2019Context AdventureWorksLT2019Context { get; private set; }
+		protected static AdventureWorksLT2019Context InMemoryAdventureWorksLT2019Context { get; private set; }
+		protected static IMapper Mapper { get; private set; }
+
 		[AssemblyInitialize()]
 		public static void AssemblyInit(TestContext context)
 		{
-			AdventureWorksLT2019Context = new AdventureWorksLT2019Context(dbContextOptions);
+			InMemoryAdventureWorksLT2019Context = new AdventureWorksLT2019Context(dbContextOptions);
+			if (Mapper == null)
+			{
+				var mappingConfig = new MapperConfiguration(mc =>
+				{
+					mc.AddProfile(new MappingProfile());
+				});
+				IMapper mapper = mappingConfig.CreateMapper();
+				Mapper = mapper;
+			}
 		}
 
 		[ClassInitialize()]

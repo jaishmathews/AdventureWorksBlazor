@@ -17,8 +17,9 @@ namespace AdventureWorks.Business.Implementation
 		}
 		public async Task<IEnumerable<Models.Product>> GetProducts()
 		{
-			var products = _mapper.Map<IEnumerable<Models.Product>>(await _unitOfWork.ProductRepository.GetAll());
-			return products;
+			var dataProductList = await _unitOfWork.ProductRepository.GetAll();
+			var businessProductList = _mapper.Map<IEnumerable<Models.Product>>(dataProductList);
+			return businessProductList;
 		}
 
 		public async Task<int> SaveProducts(Models.Product product)

@@ -5,12 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdventureWorks.DataAccess.Models;
+using AdventureWorks.Business.Tests;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdventureWorks.Business.Repositories.Tests
 {
 	[TestClass()]
-	public class GenericRepositoryTests
+	public class GenericRepositoryTests : TestBase
 	{
+		[TestInitialize()]
+		public new void Initialize()
+		{
+			InMemoryAdventureWorksLT2019Context.Products.Add(new Product { Name = "Product1", ProductNumber = "100", StandardCost = 1000, SellStartDate = DateTime.Now });
+			InMemoryAdventureWorksLT2019Context.Products.Add(new Product { Name = "Product2", ProductNumber = "200", StandardCost = 1000, SellStartDate = DateTime.Now });
+			InMemoryAdventureWorksLT2019Context.SaveChangesAsync();
+		}
 		[TestMethod()]
 		public void GenericRepositoryTest()
 		{
@@ -24,9 +34,10 @@ namespace AdventureWorks.Business.Repositories.Tests
 		}
 
 		[TestMethod()]
-		public void GetAllTest()
+		public async Task GetAllTest()
 		{
-			Assert.Fail();
+			List<Product> productList = await InMemoryAdventureWorksLT2019Context.Products.ToListAsync();
+			Assert.AreEqual(2, productList.Count);
 		}
 
 		[TestMethod()]

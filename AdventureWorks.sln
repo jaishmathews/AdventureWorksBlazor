@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.UIServer", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.ViewModel", "AdventureWorks.ViewModel\AdventureWorks.ViewModel.csproj", "{C00D88C3-29ED-4FF6-8884-6C1552D2AA8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Business.Tests", "AdventureWorks.Business.Tests\AdventureWorks.Business.Tests.csproj", "{FAEEB9AF-76A2-4B23-A333-2B8F16823644}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Business.Tests", "AdventureWorks.Business.Tests\AdventureWorks.Business.Tests.csproj", "{FAEEB9AF-76A2-4B23-A333-2B8F16823644}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{E281B137-5D23-45BB-AE10-AD0DD2DA9B45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Shared", "AdventureWorks.Shared\AdventureWorks.Shared.csproj", "{016A9ECB-9840-485C-814D-63A3B53132E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,16 @@ Global
 		{FAEEB9AF-76A2-4B23-A333-2B8F16823644}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAEEB9AF-76A2-4B23-A333-2B8F16823644}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAEEB9AF-76A2-4B23-A333-2B8F16823644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{016A9ECB-9840-485C-814D-63A3B53132E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016A9ECB-9840-485C-814D-63A3B53132E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016A9ECB-9840-485C-814D-63A3B53132E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016A9ECB-9840-485C-814D-63A3B53132E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{016A9ECB-9840-485C-814D-63A3B53132E8} = {E281B137-5D23-45BB-AE10-AD0DD2DA9B45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3163F5F1-FB54-483D-B733-8854C739542A}
