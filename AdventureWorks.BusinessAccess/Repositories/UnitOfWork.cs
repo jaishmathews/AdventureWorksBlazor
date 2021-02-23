@@ -1,9 +1,11 @@
 ﻿using AdventureWorks.Business.Interface;
 using AdventureWorks.DataAccess.Models;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AdventureWorks.Business.Repositories
 {
+	[ExcludeFromCodeCoverage]
 
 	public class UnitOfWork : IUnitOfWork
 	{

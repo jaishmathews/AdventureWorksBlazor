@@ -1,6 +1,5 @@
 ﻿using AdventureWorks.Business.Interface;
 using AdventureWorks.DataAccess.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventureWorks.Business.Repositories
@@ -13,9 +12,9 @@ namespace AdventureWorks.Business.Repositories
 
         }
 
-        public IEnumerable<Product> GetBooksByName(string name)
+        public Product GetProductByName(string name)
         {
-            return _context.Products.Where(x => x.Name == name);
+            return _context.Products.Where(x => x.Name == name).FirstOrDefault();
         }
 
     }

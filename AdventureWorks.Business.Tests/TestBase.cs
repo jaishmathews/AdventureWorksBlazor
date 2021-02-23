@@ -1,11 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AdventureWorks.Business.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using AdventureWorks.DataAccess.Models;
+﻿using AdventureWorks.DataAccess.Models;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AdventureWorks.Business.Tests
 {
@@ -31,8 +29,13 @@ namespace AdventureWorks.Business.Tests
 				IMapper mapper = mappingConfig.CreateMapper();
 				Mapper = mapper;
 			}
+
+			InMemoryAdventureWorksLT2019Context.Products.Add(new Product { ProductId = 100, Name = "Product1", ProductNumber = "1000", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null });
+			InMemoryAdventureWorksLT2019Context.Products.Add(new Product { ProductId = 200, Name = "Product2", ProductNumber = "2000", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null });
+			InMemoryAdventureWorksLT2019Context.SaveChanges();
 		}
 
+		[ExcludeFromCodeCoverage]
 		[ClassInitialize()]
 		public static void ClassInit(TestContext context)
 		{
@@ -50,7 +53,7 @@ namespace AdventureWorks.Business.Tests
 		{
 
 		}
-
+		[ExcludeFromCodeCoverage]
 		[ClassCleanup()]
 		public static void ClassCleanup()
 		{
@@ -63,11 +66,5 @@ namespace AdventureWorks.Business.Tests
 
 		}
 
-		[TestMethod()]
-		[ExpectedException(typeof(System.DivideByZeroException))]
-		public void DivideMethodTest()
-		{
-
-		}
 	}
 }

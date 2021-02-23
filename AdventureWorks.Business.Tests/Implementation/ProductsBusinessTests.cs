@@ -1,28 +1,20 @@
 ﻿using AdventureWorks.Business.Interface;
-using AdventureWorks.Business.Models;
 using AdventureWorks.Business.Tests;
 using AdventureWorks.DataAccess.Models;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AdventureWorks.Business.Implementation.Tests
 {
 	[TestClass()]
 	public class ProductsBusinessTests : TestBase
 	{
-		[TestMethod()]
-		public void ProductsBusinessTest()
-		{
-			Assert.Fail();
-		}
-
+		
 		[TestMethod()]
 		public async Task GetProductsTest()
 		{
@@ -43,13 +35,23 @@ namespace AdventureWorks.Business.Implementation.Tests
 			ProductsBusiness productsBusiness = new ProductsBusiness(uowMock.Object, Mapper);
 			var returnedProducts = await productsBusiness.GetProducts();
 			Assert.AreEqual(2, returnedProducts.Count());
-			CollectionAssert.AllItemsAreInstancesOfType(returnedProducts.ToList(),typeof(Models.Product));
+			CollectionAssert.AllItemsAreInstancesOfType(returnedProducts.ToList(), typeof(Models.Product));
 		}
 
 		[TestMethod()]
-		public void SaveProductsTest()
+		public async Task SaveProductsTest()
 		{
-			Assert.Fail();
+			Models.Product businessProduct = new Models.Product { Name = "Product1", ProductNumber = "100", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null };
+			DataAccess.Models.Product dataProduct = new DataAccess.Models.Product { Name = "Product1", ProductNumber = "100", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null };
+
+			var uowMock = new Mock<IUnitOfWork>();
+			var productRepoMock = new Mock<IProductRepository>();
+			uowMock.Setup(u => u.ProductRepository).Returns(productRepoMock.Object);
+			await uowMock.Object.ProductRepository.Add(dataProduct);
+			uowMock.Setup(u => u.Complete()).Returns(1);
+			ProductsBusiness productsBusiness = new ProductsBusiness(uowMock.Object, Mapper);
+			var entries = await productsBusiness.SaveProducts(businessProduct);
+			Assert.AreEqual(1, entries);
 		}
 	}
 }
