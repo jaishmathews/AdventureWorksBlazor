@@ -1,11 +1,9 @@
 ﻿using AdventureWorks.Business.Interface;
 using AdventureWorks.Business.Tests;
 using AdventureWorks.DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,19 +16,13 @@ namespace AdventureWorks.Business.Implementation.Tests
 		[TestMethod()]
 		public async Task GetProductsTest()
 		{
-			List<DataAccess.Models.Product> dataProducts = new List<DataAccess.Models.Product>();
-			dataProducts.Add(new DataAccess.Models.Product { Name = "Product1", ProductNumber = "100", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null });
-			dataProducts.Add(new DataAccess.Models.Product { Name = "Product2", ProductNumber = "200", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null });
-
 			var uowMock = new Mock<IUnitOfWork>();
 			var productRepoMock = new Mock<IProductRepository>();
-			var dbSetMock = new Mock<DbSet<DataAccess.Models.Product>>();
 			var dbContextMock = new Mock<AdventureWorksLT2019Context>();
 			var genericRepoMock = new Mock<IGenericRepository<DataAccess.Models.Product>>();
 
-			dbContextMock.Setup(s => s.Set<DataAccess.Models.Product>()).Returns(dbSetMock.Object);
 			uowMock.Setup(u => u.ProductRepository).Returns(productRepoMock.Object);
-			genericRepoMock.Setup(g => g.GetAll()).ReturnsAsync(dataProducts);
+			genericRepoMock.Setup(g => g.GetAll()).ReturnsAsync(InMemoryAdventureWorksLT2019Context.Products);
 			uowMock.Setup(u => u.ProductRepository.GetAll()).Returns(genericRepoMock.Object.GetAll());
 			ProductsBusiness productsBusiness = new ProductsBusiness(uowMock.Object, Mapper);
 			var returnedProducts = await productsBusiness.GetProducts();
