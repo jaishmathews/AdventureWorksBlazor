@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
     <PackageReference Include="Toolbelt.Blazor.HttpClientInterceptor" Version="9.2.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdventureWorks.Business.Models\AdventureWorks.Business.Model.csproj" />
     <ProjectReference Include="..\AdventureWorks.ViewModel\AdventureWorks.ViewModel.csproj" />
   </ItemGroup>
 

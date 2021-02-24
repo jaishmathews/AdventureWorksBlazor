@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdventureWorks.Business.Models\AdventureWorks.Business.Model.csproj" />
     <ProjectReference Include="..\AdventureWorks.DataAccess\AdventureWorks.DataAccess.csproj" />
   </ItemGroup>
 

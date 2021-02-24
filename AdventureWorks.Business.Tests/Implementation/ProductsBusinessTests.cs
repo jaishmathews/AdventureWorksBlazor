@@ -35,13 +35,13 @@ namespace AdventureWorks.Business.Implementation.Tests
 			ProductsBusiness productsBusiness = new ProductsBusiness(uowMock.Object, Mapper);
 			var returnedProducts = await productsBusiness.GetProducts();
 			Assert.AreEqual(2, returnedProducts.Count());
-			CollectionAssert.AllItemsAreInstancesOfType(returnedProducts.ToList(), typeof(Models.Product));
+			CollectionAssert.AllItemsAreInstancesOfType(returnedProducts.ToList(), typeof(Model.Product));
 		}
 
 		[TestMethod()]
 		public async Task SaveProductsTest()
 		{
-			Models.Product businessProduct = new Models.Product { Name = "Product1", ProductNumber = "100", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null };
+			Model.Product businessProduct = new Model.Product { Name = "Product1", ProductNumber = "100", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null };
 			DataAccess.Models.Product dataProduct = new DataAccess.Models.Product { Name = "Product1", ProductNumber = "100", StandardCost = 1000, SellStartDate = DateTime.Today, Color = null, Size = null };
 
 			var uowMock = new Mock<IUnitOfWork>();

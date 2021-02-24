@@ -2,17 +2,12 @@ using AdventureWorks.UIServer.Data;
 using AdventureWorks.UIServer.Utility;
 using AdventureWorks.UIServer.Utility.Interfaces;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 namespace AdventureWorks.UIServer
 {
@@ -29,6 +24,7 @@ namespace AdventureWorks.UIServer
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddAutoMapper(c => c.AddProfile<MappingProfile>(), typeof(Startup));
 			services.AddHttpClient("AdventureAPI", (sp, cl) =>
 			{
 				cl.BaseAddress = new Uri(Configuration.GetSection("AppSettings").GetSection("APiBase").Value);

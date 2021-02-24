@@ -1,7 +1,10 @@
 ﻿@using AdventureWorks.UIServer.Utility.Interfaces
+@using Business.Model;
+@using AutoMapper; 
 @inject HttpClient Http
 @inject IConfiguration Configuration
 @inject IDataAccessManager DataAccessManager
+@inject IMapper Mapper
 
 <EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
 	<DataAnnotationsValidator />
@@ -65,6 +68,7 @@
 @code {
 	private string status = string.Empty;
 	private ProductViewModel productViewModel = new ProductViewModel();
+	private Product product;
 	private EditContext editContext;
 
 	protected override void OnInitialized()
@@ -76,7 +80,8 @@
 	private async Task HandleValidSubmit()
 	{
 		string endPoint = Configuration.GetSection("AppSettings").GetSection("ProductEntryEndPoint").Value;
-		var result = await DataAccessManager.PostAsync(endPoint, productViewModel);
+		product = Mapper.Map<Business.Model.Product>(productViewModel);
+		var result = await DataAccessManager.PostAsync(endPoint, product);
 		if (result)
 		{
 			status = "Successfuly created";

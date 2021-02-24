@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 #nullable enable
-namespace AdventureWorks.Business.Models
+namespace AdventureWorks.Business.Model
 {
 	
 	public class Product

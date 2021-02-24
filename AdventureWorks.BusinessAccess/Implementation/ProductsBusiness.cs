@@ -15,14 +15,14 @@ namespace AdventureWorks.Business.Implementation
 			_unitOfWork = unitOfWork;
 			_mapper = mapper;
 		}
-		public async Task<IEnumerable<Models.Product>> GetProducts()
+		public async Task<IEnumerable<Model.Product>> GetProducts()
 		{
 			var dataProductList = await _unitOfWork.ProductRepository.GetAll();
-			var businessProductList = _mapper.Map<IEnumerable<Models.Product>>(dataProductList);
+			var businessProductList = _mapper.Map<IEnumerable<Model.Product>>(dataProductList);
 			return businessProductList;
 		}
 
-		public async Task<int> SaveProducts(Models.Product product)
+		public async Task<int> SaveProducts(Model.Product product)
 		{
 			var dataProduct = _mapper.Map<DataAccess.Models.Product>(product);
 			await _unitOfWork.ProductRepository.Add(dataProduct);

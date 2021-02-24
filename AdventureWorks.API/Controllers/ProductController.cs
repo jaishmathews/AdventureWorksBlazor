@@ -1,10 +1,9 @@
 ﻿using AdventureWorks.Business.Interface;
-using AdventureWorks.ViewModel;
+using AdventureWorks.Business.Model;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -29,13 +28,12 @@ namespace AdventureWorks.API.Controllers
 		[HttpGet]
 		[MapToApiVersion("1")]
 		[ActionName("products")]
-		public async Task<IEnumerable<ProductViewModel>> GetProducts()
+		public async Task<IEnumerable<Product>> GetProducts()
 		{
 			_logger.LogInformation("GetProducts started");
 			var productCollection = await _productBusinessAccess.GetProducts();
-			var productViewModelCollection = _mapper.Map<IEnumerable<ProductViewModel>>(productCollection);
 			_logger.LogInformation("GetProducts completed");
-			return productViewModelCollection;
+			return productCollection;
 
 		}
 
@@ -46,19 +44,16 @@ namespace AdventureWorks.API.Controllers
 		{
 			_logger.LogInformation("GetProducts started");
 			var productCollection = await _productBusinessAccess.GetProducts();
-			var productViewModelCollection = _mapper.Map<IEnumerable<ProductViewModel>>(productCollection);
 			_logger.LogInformation("GetProducts completed");
-			return Ok(productViewModelCollection);
-			//return StatusCode(StatusCodes.Status500InternalServerError);
+			return Ok(productCollection);
 		}
 
 		[HttpPost]
 		[ActionName("product")]
 		[MapToApiVersion("1")]
-		public async Task<IActionResult> SaveProducts(ProductViewModel productViewModel)
+		public async Task<IActionResult> SaveProducts(Product product)
 		{
 			_logger.LogInformation("SaveProducts started");
-			var product = _mapper.Map<Business.Models.Product>(productViewModel);
 			int recordCount = await _productBusinessAccess.SaveProducts(product);
 			_logger.LogInformation("SaveProducts completed");
 

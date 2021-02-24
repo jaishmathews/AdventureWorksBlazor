@@ -6,8 +6,8 @@ namespace AdventureWorks.Business.Tests
 	{
 		public MappingProfile()
 		{
-			CreateMap<DataAccess.Models.Product, Business.Models.Product>();
-			CreateMap<Business.Models.Product, DataAccess.Models.Product>();
+			CreateMap<DataAccess.Models.Product, Business.Model.Product>();
+			CreateMap<Business.Model.Product, DataAccess.Models.Product>();
 		}
 	}
 }

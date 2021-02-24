@@ -1,11 +1,13 @@
 ﻿@using AdventureWorks.UIServer.Utility.Interfaces
+@using Business.Model 
+@using AutoMapper; 
 @inject HttpClient Http
 @inject HttpInterceptorService Interceptor
 @inject IConfiguration Configuration
 @inject IDataAccessManager DataAccessManager
+@inject IMapper Mapper  
 
-
-@if (productList == null)
+@if (productViewModelList == null)
 {
 	<p><em>Loading...</em></p>
 }
@@ -23,7 +25,7 @@ else
 			</tr>
 		</thead>
 		<tbody>
-			<Virtualize Items="productList" Context="product">
+			<Virtualize Items="productViewModelList" Context="product">
 				<ItemContent>
 					<tr @key="product.ProductId">
 						<td>@product.ProductId</td>
@@ -44,7 +46,8 @@ else
 }
 @code {
 
-	private ProductViewModel[] productList;
+	private ProductViewModel[] productViewModelList;
+	private Product[] productList;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -53,6 +56,7 @@ else
 		{
 			PropertyNameCaseInsensitive = true
 		};
-		productList = await DataAccessManager.GetAsync<ProductViewModel[]>(endPoint);
+		productList = await DataAccessManager.GetAsync<Product[]>(endPoint);
+		productViewModelList = Mapper.Map<ProductViewModel[]>(productList);
 	}
 }
