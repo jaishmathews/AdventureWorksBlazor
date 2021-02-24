@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdventureWorks.API\AdventureWorks.API.csproj" />
+    <ProjectReference Include="..\AdventureWorks.Business.Models\AdventureWorks.Business.Model.csproj" />
+    <ProjectReference Include="..\AdventureWorks.BusinessAccess\AdventureWorks.Business.csproj" />
   </ItemGroup>
 
 </Project>
