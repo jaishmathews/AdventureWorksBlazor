@@ -18,7 +18,6 @@ namespace AdventureWorks.Business.Implementation.Tests
 		{
 			var uowMock = new Mock<IUnitOfWork>();
 			var productRepoMock = new Mock<IProductRepository>();
-			var dbContextMock = new Mock<AdventureWorksLT2019Context>();
 			var genericRepoMock = new Mock<IGenericRepository<DataAccess.Models.Product>>();
 
 			uowMock.Setup(u => u.ProductRepository).Returns(productRepoMock.Object);
